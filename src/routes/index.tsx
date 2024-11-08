@@ -17,7 +17,7 @@ export default component$(() => {
 });
 
 export const head: DocumentHead = {
-  title: "Welcome to Ladakh Moto",
+  title: "zaaWelcome to Ladakh Moto",
   meta: [
     {
       name: "description",
