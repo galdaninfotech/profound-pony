@@ -1,11 +1,8 @@
-import { component$, Slot, useStyles$ } from '@builder.io/qwik';
-import { routeLoader$ } from '@builder.io/qwik-city';
-import type { RequestHandler } from '@builder.io/qwik-city';
-
-import Header from '../components/starter/header/header';
-import Footer from '../components/starter/footer/footer';
-
-import styles from './styles.css?inline';
+import { component$, Slot } from "@builder.io/qwik";
+import type { RequestHandler } from "@builder.io/qwik-city";
+import Footer from "~/components/footer/footer";
+import Header from "~/components/header/header";
+import Slider from "~/components/slider/slider";
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
   // Control caching for this request for best performance and to reduce hosting costs:
@@ -18,21 +15,44 @@ export const onGet: RequestHandler = async ({ cacheControl }) => {
   });
 };
 
-export const useServerTimeLoader = routeLoader$(() => {
-  return {
-    date: new Date().toISOString(),
-  };
-});
-
 export default component$(() => {
-  useStyles$(styles);
   return (
     <>
-      <Header />
-      <main>
-        <Slot />
-      </main>
-      <Footer />
+        {/* Start Preloader */}
+		<div class="preloader-wrap">
+			<div class="cube-wrapper">
+				<div class="cube-folding">
+					<span class="leaf1"></span>
+					<span class="leaf2"></span>
+					<span class="leaf3"></span>
+					<span class="leaf4"></span>
+				</div>
+				<span class="loading" data-name="Loading">Loading</span>
+			</div>
+		</div>
+		{/* End Preloader */}
+
+        <div class="wrapper">
+            <main>
+                <Header />
+                <Slider />
+                <section>
+                    <Slot />
+                </section>
+            </main>
+            <Footer />
+            {/* <Fab /> */}
+        </div>
+
+        <script src="/js/vendor/jquery-3.3.1.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>	
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/meanmenu.min.js"></script>
+
+        <script src="/js/main.js"></script>
+        <script src="/js/custom.js"></script>
+
+        
     </>
   );
 });
